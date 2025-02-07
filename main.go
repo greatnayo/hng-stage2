@@ -12,6 +12,7 @@ import (
 
 func ClassifyNumberHandler(w http.ResponseWriter, r *http.Request) {
 	// Set Response headers
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization, Set-Cookie")
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
@@ -93,6 +94,11 @@ func isPrime(n int) bool {
 
 // Function to check if a number is Perfect
 func isPerfect(num int) bool {
+
+	if num <= 0 { // Explicitly handle 0 and negative numbers
+		return false
+	}
+
 	sum := 0
 	for count := 1; count < num; count++ {
 		if num%count == 0 {
